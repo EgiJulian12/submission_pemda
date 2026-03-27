@@ -26,8 +26,9 @@ def convert_rating(rating_str):
         if "Invalid Rating" in rating_str or "Not Rated" in rating_str:
             return None
         rating_str = rating_str.replace("⭐", "").strip()
-        return float(rating_str.split("/")[0].strip)
-    
+        nilai = rating_str.split("/")[0].strip()
+        return float(nilai)
+        
     except Exception as e :
         print(f"Error converting rating '{rating_str}': {e}")
         return None
@@ -84,7 +85,7 @@ def transform_data(raw_products):
         df["Gender"] = df["Gender"].apply(convert_gender)
 
         # Hapus baris 'Unknown Product'
-        df = df[df["Tittle"] != "Unknown Product"]
+        df = df[df["Title"] != "Unknown Product"]
 
         # Hapus baris Null
         df = df.dropna()
