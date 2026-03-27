@@ -16,6 +16,7 @@ def save_to_csv(df, filepath="products.csv"):
         
         df.to_csv(filepath, index=False)
         print(f"Data berhasil disimpan ke CSV :{filepath} ({len(df)} baris)")
+        return True
 
     except Exception as e:
         print(f"CSV error: {e}")
@@ -54,7 +55,7 @@ def save_to_google_sheets(df, spreadsheet_id, credentials_file="google-sheets-ap
             raise ConnectionError("Gagal koneksi ke Google Sheets API.")
         
         values = [df.columns.tolist()] + df.astype(str).values.tolist()
-        service.spreadsheets().values().clear(spreadsheetID=spreadsheet_id, range="Sheet1").execute()
+        service.spreadsheets().values().clear(spreadsheetId=spreadsheet_id, range="Sheet1").execute()
 
         result = service.spreadsheets().values().update(
             spreadsheetId=spreadsheet_id,
