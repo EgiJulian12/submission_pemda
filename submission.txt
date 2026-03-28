@@ -1,0 +1,25 @@
+Nama : Egi Julian
+Email : egijulian8@gmail.com
+
+# Menjalankan ETL PIPELINE
+- Pastikan sudah menginstall semua dependencies:
+'''
+pip install -r requirements.txt
+'''
+- Jalankan PIPELINE:
+'''
+python main.py
+'''
+
+# Menjalankan unit test
+'''
+pytest tests/
+'''
+
+# Menjalankan test coverage
+'''
+pytest tests/ --cov=utils --cov-report=term-missing
+'''
+
+# Url Google Sheets:
+https://docs.google.com/spreadsheets/d/1uMbGB_QdMH2ZdeZ3aOsaJFgqn-z-5hlJTQ30UlmdHi4/edit?usp=sharing

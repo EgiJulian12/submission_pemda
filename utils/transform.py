@@ -26,8 +26,9 @@ def convert_rating(rating_str):
         if "Invalid Rating" in rating_str or "Not Rated" in rating_str:
             return None
         rating_str = rating_str.replace("⭐", "").strip()
-        return float(rating_str.split("/")[0].strip)
-    
+        nilai = rating_str.split("/")[0].strip()
+        return float(nilai)
+        
     except Exception as e :
         print(f"Error converting rating '{rating_str}': {e}")
         return None
@@ -69,12 +70,15 @@ def convert_gender(gender_str):
 def transform_data(raw_products):
     try:
         if raw_products is None:
-            return ValueError("Input data adalah None.")
+            raise ValueError("Input data adalah None.")
+
+        if isinstance(raw_products, list) and len(raw_products) == 0:
+            raise ValueError("DataFrame kosong.")
         
         df = pd.DataFrame(raw_products)
 
         if df.empty:
-            raise ValueError("DataFrame Kosong.")
+            raise ValueError("DataFrame kosong.")
         
         # Konversi setiap kolom
         df["Price"] = df["Price"].apply(convert_price)
@@ -84,7 +88,7 @@ def transform_data(raw_products):
         df["Gender"] = df["Gender"].apply(convert_gender)
 
         # Hapus baris 'Unknown Product'
-        df = df[df["Tittle"] != "Unknown Product"]
+        df = df[df["Title"] != "Unknown Product"]
 
         # Hapus baris Null
         df = df.dropna()
@@ -109,6 +113,8 @@ def transform_data(raw_products):
     
     except ValueError as e:
         print(f"Transform Error: {e}")
+        return None
+    
     except Exception as e:
         print(f"Unexpected error: {e}")
         return None
