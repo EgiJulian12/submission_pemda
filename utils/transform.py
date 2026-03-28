@@ -70,12 +70,15 @@ def convert_gender(gender_str):
 def transform_data(raw_products):
     try:
         if raw_products is None:
-            return ValueError("Input data adalah None.")
+            raise ValueError("Input data adalah None.")
+
+        if isinstance(raw_products, list) and len(raw_products) == 0:
+            raise ValueError("DataFrame kosong.")
         
         df = pd.DataFrame(raw_products)
 
         if df.empty:
-            raise ValueError("DataFrame Kosong.")
+            raise ValueError("DataFrame kosong.")
         
         # Konversi setiap kolom
         df["Price"] = df["Price"].apply(convert_price)
@@ -110,6 +113,8 @@ def transform_data(raw_products):
     
     except ValueError as e:
         print(f"Transform Error: {e}")
+        return None
+    
     except Exception as e:
         print(f"Unexpected error: {e}")
         return None
